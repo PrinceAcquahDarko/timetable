@@ -1,0 +1,45 @@
+.none {
+    display: none;
+}
+
+.first{
+    padding: 3px;
+    border: 1px solid gray;
+}
+.info{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 5em;
+    text-align: center;
+}
+
+.display{
+    width: 90%;
+    margin: 0 auto;
+}
+.card{
+    margin-bottom: 4em;
+}
+.genbutt{
+    text-align: center;
+    margin-top: 3em;
+    margin-bottom: 10px;
+}
+
+.second{
+    padding-top: 5em;
+    padding-bottom: 5em;
+}
+
+button {
+    padding: 10px !important;
+    margin: 10px !important;
+}
+
+.outfo{
+    margin-top: 5em;
+}
+
+form{
+    padding: 4em;
+}

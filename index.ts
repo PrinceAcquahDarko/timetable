@@ -1,53 +1,115 @@
-import {Iclasses, Icourses} from './interface';
-import {GenerateTimetable} from './timetable'
+import {GenerateTimetable} from './timetable';
+import {classe, course} from './list'
+import {Templates} from './templates';
+import { Iclasses, Icourses } from './interface';
 
-console.log('hello accra')
+const button: HTMLButtonElement = document.querySelector('.gen')!
+const table:HTMLTableElement = document.querySelector('table')!
+const addCourse = document.querySelector('.addCourse')!
+const addBlock = document.querySelector('.addBlock')!
+const display1 = document.querySelector('#display1')!
+const display2 = document.querySelector('#display2')!
+const results = document.querySelector('#results')!
+const genbutt = document.querySelector('.gen')!
+
+let generateTimetable: GenerateTimetable
+let templates = new Templates()
+
+addCourse.addEventListener('click', function(){
+    
+    templates.getCourseName();
+    templates.getNoOfStds();
+    templates.gethours();
+    templates.getstds();
+    templates.gettutor();
+    templates.getCourse()
+    display1.textContent = `the class ${templates.courseName} has been entered successfully`
+    setTimeout(()=>display1.textContent = '', 1000)
+    if(templates.checkLength()){
+        genbutt.classList.remove('none');
+    }
+})
+
+addBlock.addEventListener('click', function(){
+    
+    templates.getBlockName()
+    templates.getBlockCapacity();
+    templates.getBlock()
+    display2.textContent = `the block ${templates.blockName} has been entered successfully`
+    setTimeout(()=>display2.textContent = '', 1000)
+    if(templates.checkLength()){
+        genbutt.classList.remove('none');
+    }
+})
+button.addEventListener('click', function(){
+
+    results.classList.remove('none');
+    genbutt.classList.add('none')
 
 
-let course: Icourses[] = [
-    {numberOfStds: 2, course: 'maths', creditHours: 3, Tutor: 'PRINCE', taken: false , students: ['arts', 'pyh']},
-    {numberOfStds: 11, course: 'scie', creditHours: 3, Tutor: 'as', taken: false , students: ['fe', 'ead']},
-    {numberOfStds: 13, course: 'soci', creditHours: 2, Tutor: 'sam', taken: false, students: ['arts']},
-    {numberOfStds: 14, course: 'chem', creditHours: 2, Tutor: 'PRINCE', taken: false, students: [ 'pyh']},
-    {numberOfStds: 16, course: 'lit', creditHours: 2, Tutor: 'PRINCE',taken: false, students: ['aerts', 'pyhge']},
-    {numberOfStds: 17, course: 'fre', creditHours: 2,Tutor: 'sma', taken: false, students: ['artaeves', 'pyveeh']},
-    {numberOfStds: 18, course: 'engl', creditHours: 2,Tutor: 'sam', taken: false, students: ['arts', 'pyaeqh']},
-    {numberOfStds: 19, course: 'engl', creditHours: 2,Tutor: 'ko', taken: false, students: ['arteqs', 'pyavh']},
-    {numberOfStds: 20, course: 'engl', creditHours: 3,Tutor: 'sa', taken: false, students: ['artgghhs', 'pyfe2h']},
-    {numberOfStds: 21, course: 'engl', creditHours: 2,Tutor: 'fred', taken: false, students: ['arts', 'pyh']},
-    {numberOfStds: 22, course: 'engl', creditHours: 3,Tutor: 'fe', taken: false, students: ['arts', 'pyh']},
-    {numberOfStds: 23, course: 'engl', creditHours: 3,Tutor: 'ko', taken: false, students: ['arets', 'pcyh']},
-    {numberOfStds: 24, course: 'engl', creditHours: 3,Tutor: 'sa', taken: false, students: ['artse', 'pwveyh']},
-    {numberOfStds: 25, course: 'engl', creditHours: 2,Tutor: 'fred', taken: false, students: ['arecdgts', 'bbfrpyh']},
-    {numberOfStds: 26, course: 'bioi', creditHours: 2,Tutor: 'lo', taken: false, students: ['artfkorms', 'pypofh']}
-]
-
-let classe: Iclasses[] = [
-    {classroom: 'block3', size: 4, taken: false, startTime:0, endTime:7, day:'Monday'},
-    // {classroom: 'block1', size: 15, taken: false, startTime:0, endTime:7, day:'Monday'},
-    // {classroom: 'block1', size: 24, taken: false, startTime:0, endTime:7, day:'Monday'},
-    {classroom: 'block2', size: 30, taken: false, startTime:0, endTime:7, day:'Monday'}
-]
-
-
-
-    let generateTimetable = new GenerateTimetable(classe, course)
+    // let classe: Iclasses[] = [
+    //     {classroom: 'prince', day:'Monday', startTime: 0, endTime:7, size: 15}
+    // ]
+    // let blocks: Icourses[] = [
+    //     {course:'b', numberOfStds: 10, taken: false, creditHours: 2, Tutor: 'prince', students: ['sam']},
+    //     {course:'cbew', numberOfStds: 14, taken: false, creditHours: 1, Tutor: 'fe', students: ['dudfkfkfe']},
+    // //     {course:'cbf', numberOfStds: 25, taken: false, creditHours: 3, Tutor: 'fewee', students: ['deude']},
+    // //     {course:'cbw', numberOfStds: 12, taken: false, creditHours: 2, Tutor: 'sam', students: ['dude']},
+    // //     {course:'cbe', numberOfStds: 20, taken: false, creditHours: 2, Tutor: 'e', students: ['dudge']},
+    // //     {course:'cbv', numberOfStds: 35, taken: false, creditHours: 2, Tutor: 'e', students: ['dudgeee']},
+    // //     {course:'bd', numberOfStds: 11, taken: false, creditHours: 3, Tutor: 'prince', students: ['sam']},
+    // //     {course:'cbwdwew', numberOfStds: 19, taken: false, creditHours: 3, Tutor: 'fde', students: ['dudfkfkfeeaee']},
+    // //     {course:'cbsdagf', numberOfStds: 28, taken: false, creditHours: 3, Tutor: 'fewfeee', students: ['deudgegee']},
+    // ]
+    generateTimetable = new GenerateTimetable(templates.blocks, templates.courses)
+    
     generateTimetable.generateClass()
-    let day;
-    generateTimetable.provisionalTimetable.forEach(i => {
-        if(i.day === 'out of days'){
-            day = `we run out of space is either you increase the number of classes ${i.size} or the number of days1`
-        }else{
-            day = false
-        }
-    })
+    let day = areDaysFull()
+    console.log(generateTimetable.provisionalTimetable)
+    
+
+
     if(!day){
-        console.log(generateTimetable.provisionalTimetable)
+        generateTimetable.provisionalTimetable.forEach(i => {
+            table.innerHTML += `
+                
+              <tr>
+                <td>${i.courseName}</td>
+                <td>${i.tutor}</td>
+                <td>${i.students}</td>
+                <td>${i.classroom}</td>
+                <td>${i.day}</td>
+                <td>${i.startTime}</td>
+                <td>${i.endTime}</td>
+
+              </tr>      
+            
+            
+        
+`
+        })
 
         
     }else{
-        console.log(day)
+        table.innerHTML += day
     }
+})
+
+
+
+function areDaysFull(){
+    let day;
+    for (const i of generateTimetable.provisionalTimetable) {
+        if(typeof(i.day) === 'undefined'){
+            day = `we run out of space is either you increase the number of classes ${i.size} or the number of days1`
+            break
+        }else{
+            day = false
+        }
+    }
+
+    return day
+}
 
 
 

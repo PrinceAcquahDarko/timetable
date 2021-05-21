@@ -114,9 +114,9 @@ class GenerateTimetable {
         courses.forEach(course => {
             course.taken = false;
         })
-        if(nextday)
-            return this.days[nextday]
-        return 'out of days'
+      
+        return this.days[nextday]
+        
     }
 
     generateTimePeriods(hour: number, courses: Icourses): number{

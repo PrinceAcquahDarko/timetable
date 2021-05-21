@@ -1,0 +1,128 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="./index.css">
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <!-- btn-primary -->
+    <nav class="navbar navbar-light bg-primary">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">Navbar</span>
+        </div>
+      </nav>
+      <div class="info">
+        
+        <div class="row align-items-start">
+            
+        <div class="col-md-6 first">
+            <form action="">
+              <h3>Enter Course Details</h3>
+                <p id="display1"></p>
+                <div class="mb-3">
+            
+                    <input type="text" class="form-control" id="CourseName" placeholder="Course Name">
+                  </div>
+                  <div class="mb-3">
+                    <input type="number" class="form-control" id="NoOfStds" placeholder="No Of Students">
+                  </div>
+                  <div class="mb-3">
+                    <input type="number" class="form-control" id="hours" placeholder="creditHours">
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control" id = "tutor" placeholder="Tutor">
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control" id="stds"  placeholder="Students">
+                  </div>
+           
+                  <div class="col-12">
+                    <button type="button" class="btn btn-primary addCourse">Add Course</button>
+                  </div>
+            </form>
+              
+        </div>
+        
+    
+        <div class="col-md-6 first">
+
+            <form action="">
+          <h3>Enter Block Details</h3>
+          <p id="display2"></p>
+
+                <div class="second">
+                  <div class="mb-3">
+                    <input type="text" class="form-control" id="NameOfClass"  placeholder="Name of Classroom">
+                  </div>
+                  <div class="mb-3">
+                    <input type="number" class="form-control" id="capacity" placeholder="Capacity">
+                  </div>
+                </div>
+               
+                  <div class="col-12">
+                    <button type="button" class="btn btn-primary addBlock">Add Classroom</button>
+                  </div>
+            </form>
+        
+               
+            
+        </div>
+        </div>
+  
+        </div>
+        
+    
+        <div id="results" class="display outfo none">
+          <div class="card">
+            <div class="card-body">
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>courseName</th>
+                        <th>tutor</th>
+                        <th>students</th>
+                        <th>classroom</th>
+                        <th>day</th>
+                        <th>startTime</th>
+                        <th>endTime</th>
+                      </tr>
+              
+                </thead>
+                <tbody>
+                 
+                </tbody>
+              </table>
+          </div>
+          </div>
+        <div class="genbutt">
+          <button class="btn btn-primary gen none">generate timetable</button>
+        </div>
+        
+
+          
+         
+      
+  
+    
+    <script src="./main.js"></script>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

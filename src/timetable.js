@@ -91,9 +91,7 @@ var GenerateTimetable = /** @class */ (function () {
         courses.forEach(function (course) {
             course.taken = false;
         });
-        if (nextday)
-            return this.days[nextday];
-        return 'out of days';
+        return this.days[nextday];
     };
     GenerateTimetable.prototype.generateTimePeriods = function (hour, courses) {
         var hours = 0;
