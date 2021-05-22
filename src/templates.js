@@ -22,31 +22,54 @@ var Templates = /** @class */ (function () {
             endTime: 7,
             day: 'Monday'
         };
+        this.errorMsg = '';
+        this.errorMsg2 = '';
+        this.displayMsg = '';
     }
     Templates.prototype.getCourseName = function () {
-        var value = document.getElementById('CourseName');
-        this.course.course = value.value;
-        value.value = '';
+        this.courseNameValue = document.getElementById('CourseName');
+        if (this.courseNameValue.value) {
+            this.course.course = this.courseNameValue.value;
+        }
+        else {
+            this.errorMsg = "course name cannot be blank";
+        }
     };
     Templates.prototype.getNoOfStds = function () {
-        var value = document.querySelector('#NoOfStds');
-        this.course.numberOfStds = +value.value;
-        value.value = '';
+        this.NoOfStdsValue = document.querySelector('#NoOfStds');
+        if (this.NoOfStdsValue && +this.NoOfStdsValue.value > 0) {
+            this.course.numberOfStds = +this.NoOfStdsValue.value;
+        }
+        else {
+            this.errorMsg = 'Number of stds must not be empty and should be greater than zero';
+        }
     };
     Templates.prototype.gethours = function () {
-        var value = document.querySelector('#hours');
-        this.course.creditHours = +value.value;
-        value.value = '';
+        this.creditHourValue = document.querySelector('#hours');
+        if (this.creditHourValue && +this.creditHourValue.value > 0) {
+            this.course.creditHours = +this.creditHourValue.value;
+        }
+        else {
+            this.errorMsg = 'credit hours must not be empty and should be greater than zero';
+        }
     };
     Templates.prototype.gettutor = function () {
-        var value = document.querySelector('#tutor');
-        this.course.Tutor = value.value;
-        value.value = '';
+        this.tutorValue = document.querySelector('#tutor');
+        if (this.tutorValue) {
+            this.course.Tutor = this.tutorValue.value;
+        }
+        else {
+            this.errorMsg = 'Tutor cannot be empty';
+        }
     };
     Templates.prototype.getstds = function () {
-        var value = document.querySelector('#stds');
-        this.course.students.push(value.value);
-        value.value = '';
+        this.stdsValue = document.querySelector('#stds');
+        if (this.stdsValue) {
+            this.course.students.push(this.stdsValue.value);
+        }
+        else {
+            this.errorMsg = 'stds cannot be empty';
+        }
     };
     Templates.prototype.getCourse = function () {
         this.courses.push(this.course);
@@ -62,17 +85,30 @@ var Templates = /** @class */ (function () {
             Tutor: '',
             students: []
         };
+        this.stdsValue.value = '';
+        this.tutorValue.value = '';
+        this.NoOfStdsValue.value = '';
+        this.creditHourValue.value = '';
+        this.courseNameValue.value = '';
     };
     //for block
     Templates.prototype.getBlockName = function () {
-        var value = document.querySelector('#NameOfClass');
-        this.block.classroom = value.value;
-        value.value = '';
+        this.blockNameValue = document.querySelector('#NameOfClass');
+        if (this.blockNameValue.value) {
+            this.block.classroom = this.blockNameValue.value;
+        }
+        else {
+            this.errorMsg2 = "block name cannot be empty";
+        }
     };
     Templates.prototype.getBlockCapacity = function () {
-        var value = document.querySelector('#capacity');
-        this.block.size = +value.value;
-        value.value = '';
+        this.blockCapacityValue = document.querySelector('#capacity');
+        if (this.blockCapacityValue.value && this.blockCapacityValue.value > 0) {
+            this.block.size = +this.blockCapacityValue.value;
+        }
+        else {
+            this.errorMsg2 = 'capacity must not be empty and should be greater than zero';
+        }
     };
     Templates.prototype.getBlock = function () {
         this.blocks.push(this.block);
@@ -87,9 +123,23 @@ var Templates = /** @class */ (function () {
             endTime: 7,
             day: 'Monday'
         };
+        this.blockNameValue.value = '';
+        this.blockCapacityValue.value = '';
     };
     Templates.prototype.checkLength = function () {
         return !!this.blocks.length && !!this.courses.length;
+    };
+    Templates.prototype.checkLimit = function () {
+        for (var _i = 0, _a = this.courses; _i < _a.length; _i++) {
+            var i = _a[_i];
+            for (var _b = 0, _c = this.blocks; _b < _c.length; _b++) {
+                var j = _c[_b];
+                if (i.numberOfStds > j.size) {
+                    this.displayMsg = "<h3 style=\"text-align:center\">there's no block that can contain " + i.numberOfStds + " stds of " + i.course + "</h3>";
+                    break;
+                }
+            }
+        }
     };
     return Templates;
 }());

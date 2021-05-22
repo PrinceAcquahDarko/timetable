@@ -18,26 +18,58 @@ addCourse.addEventListener('click', function () {
     templates.gethours();
     templates.getstds();
     templates.gettutor();
-    templates.getCourse();
-    display1.textContent = "the class " + templates.courseName + " has been entered successfully";
-    setTimeout(function () { return display1.textContent = ''; }, 1000);
-    if (templates.checkLength()) {
-        genbutt.classList.remove('none');
+    if (templates.errorMsg) {
+        display1.textContent = templates.errorMsg;
+        setTimeout(function () { return display1.textContent = ''; }, 2000);
+        templates.errorMsg = '';
+    }
+    else {
+        templates.getCourse();
+        display1.textContent = "the class " + templates.courseName + " has been entered successfully";
+        setTimeout(function () { return display1.textContent = ''; }, 1000);
+        if (templates.checkLength()) {
+            genbutt.classList.remove('none');
+        }
     }
 });
 addBlock.addEventListener('click', function () {
     templates.getBlockName();
     templates.getBlockCapacity();
-    templates.getBlock();
-    display2.textContent = "the block " + templates.blockName + " has been entered successfully";
-    setTimeout(function () { return display2.textContent = ''; }, 1000);
-    if (templates.checkLength()) {
-        genbutt.classList.remove('none');
+    if (templates.errorMsg2) {
+        display2.textContent = templates.errorMsg2;
+        setTimeout(function () { return display2.textContent = ''; }, 2000);
+        templates.errorMsg = '';
+    }
+    else {
+        templates.getBlock();
+        display2.textContent = "the block " + templates.blockName + " has been entered successfully";
+        setTimeout(function () { return display2.textContent = ''; }, 1000);
+        if (templates.checkLength()) {
+            genbutt.classList.remove('none');
+        }
     }
 });
 button.addEventListener('click', function () {
     results.classList.remove('none');
     genbutt.classList.add('none');
+    templates.checkLimit();
+    if (templates.displayMsg) {
+        results.innerHTML = templates.displayMsg;
+    }
+    else {
+        generateTimetable = new timetable_1.GenerateTimetable(templates.blocks, templates.courses);
+        generateTimetable.generateClass();
+        var day = areDaysFull();
+        console.log(generateTimetable.provisionalTimetable);
+        if (!day) {
+            generateTimetable.provisionalTimetable.forEach(function (i) {
+                table.innerHTML += "\n                    \n                <tr>\n                    <td>" + i.courseName + "</td>\n                    <td>" + i.tutor + "</td>\n                    <td>" + i.students + "</td>\n                    <td>" + i.classroom + "</td>\n                    <td>" + i.day + "</td>\n                    <td>" + i.startTime + "</td>\n                    <td>" + i.endTime + "</td>\n\n                </tr>         \n            \n    ";
+            });
+        }
+        else {
+            table.innerHTML += day;
+        }
+    }
     // let classe: Iclasses[] = [
     //     {classroom: 'prince', day:'Monday', startTime: 0, endTime:7, size: 15}
     // ]
@@ -52,18 +84,6 @@ button.addEventListener('click', function () {
     // //     {course:'cbwdwew', numberOfStds: 19, taken: false, creditHours: 3, Tutor: 'fde', students: ['dudfkfkfeeaee']},
     // //     {course:'cbsdagf', numberOfStds: 28, taken: false, creditHours: 3, Tutor: 'fewfeee', students: ['deudgegee']},
     // ]
-    generateTimetable = new timetable_1.GenerateTimetable(templates.blocks, templates.courses);
-    generateTimetable.generateClass();
-    var day = areDaysFull();
-    console.log(generateTimetable.provisionalTimetable);
-    if (!day) {
-        generateTimetable.provisionalTimetable.forEach(function (i) {
-            table.innerHTML += "\n                \n              <tr>\n                <td>" + i.courseName + "</td>\n                <td>" + i.tutor + "</td>\n                <td>" + i.students + "</td>\n                <td>" + i.classroom + "</td>\n                <td>" + i.day + "</td>\n                <td>" + i.startTime + "</td>\n                <td>" + i.endTime + "</td>\n\n              </tr>      \n            \n            \n        \n";
-        });
-    }
-    else {
-        table.innerHTML += day;
-    }
 });
 function areDaysFull() {
     var day;
