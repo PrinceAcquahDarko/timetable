@@ -63,7 +63,7 @@ export class Templates {
     }
     gettutor(): void{
         this.tutorValue = <HTMLInputElement>document.querySelector('#tutor')!
-        if(this.tutorValue){
+        if(this.tutorValue.value){
             this.course.Tutor = this.tutorValue.value    
         }else{
             this.errorMsg = 'Tutor cannot be empty'
@@ -72,7 +72,7 @@ export class Templates {
     }
     getstds(): void{
         this.stdsValue= <HTMLInputElement>document.querySelector('#stds')!
-        if(this.stdsValue){
+        if(this.stdsValue.value){
             this.course.students.push(this.stdsValue.value)  
         }else{
             this.errorMsg = 'stds cannot be empty'
@@ -82,9 +82,33 @@ export class Templates {
     }
 
     getCourse(): void{
-        this.courses.push(this.course)
-        this.courseName = this.course.course
-        this.resetCourse();
+        if(this.course.creditHours > 2){
+            this.course.creditHours -= 2
+            this.course.taken = true
+            this.courses.push(this.course)
+            
+            let secondCourse:Icourses = {
+                course: this.course.course,
+                Tutor: this.course.Tutor,
+                taken: false,
+                numberOfStds: this.course.numberOfStds,
+                creditHours: 2,
+                students: this.course.students
+            }
+            
+         
+            this.courses.push(secondCourse)
+          
+            this.courseName = this.course.course
+            this.resetCourse();
+            this.sortCourses()
+        }else{
+            this.courses.push(this.course)
+            this.courseName = this.course.course
+            this.resetCourse();
+            this.sortCourses()
+
+        }
  
     }
 
@@ -133,6 +157,7 @@ export class Templates {
         this.blocks.push(this.block)
         this.blockName = this.block.classroom
         this.resetBlock()
+        this.sortBlocks()
     }
 
     resetBlock(): void {
@@ -154,14 +179,26 @@ export class Templates {
     }
 
     checkLimit(): void{
-        for (const i of this.courses) {
-            for (const j of this.blocks) {
-                if(i.numberOfStds > j.size){
-                    this.displayMsg = `<h3 style="text-align:center">there's no block that can contain ${i.numberOfStds} stds of ${i.course}</h3>`
-                    break;
-                }
-            }
-        }
+  
+        let highestCourse = this.courses.sort((a,b) => b.numberOfStds - a.numberOfStds)[0]
+        let highestBlock = this.blocks.sort((a,b)=> b.size - a.size)[0]
+        console.log(highestCourse, 'from course');
+        console.log(highestBlock, 'from block');
+        if(highestCourse.numberOfStds > highestBlock.size)
+          this.displayMsg = `<h3 style="text-align:center">there's no block that can contain ${highestCourse.numberOfStds} stds of ${highestCourse.course}</h3>`
+            
+
+
     }
+
+    sortCourses(): void{
+        this.courses.sort((x,y) => y.creditHours - x.creditHours)
+    }
+
+    sortBlocks(): void{
+        this.blocks.sort((x,y) => x.size - y.size)
+    }
+
+    
 
 }

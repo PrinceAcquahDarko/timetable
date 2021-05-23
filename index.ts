@@ -61,13 +61,17 @@ button.addEventListener('click', function(){
     results.classList.remove('none');
     genbutt.classList.add('none')
     templates.checkLimit();
+
     if(templates.displayMsg){
+
         results.innerHTML = templates.displayMsg
-    }else{
+    }
+    else{
         generateTimetable = new GenerateTimetable(templates.blocks, templates.courses)
+        console.log(templates.courses, 'from courses')
         generateTimetable.generateClass()
+
         let day = areDaysFull()
-        console.log(generateTimetable.provisionalTimetable)
         if(!day){
             generateTimetable.provisionalTimetable.forEach(i => {
                 table.innerHTML += `

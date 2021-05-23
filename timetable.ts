@@ -33,7 +33,7 @@ class GenerateTimetable {
                                             ele.startTime = ele.endTime 
 
                                         }
-                                        if(!this.checkForDuplicateTeach(ele.startTime, courses, ele) && !this.checkForDuplicateStd(ele, courses)){
+                                        if(!this.checkForDuplicateTeach(ele.startTime, courses, ele) && !this.checkForDuplicateStd(ele, courses) && !this.checkSameDay(ele, courses)){
                                             let hour = this.generateTimePeriods(courses.creditHours, courses)
                                             courses.taken = true
                                             ele.endTime = ele.startTime + hour
@@ -117,6 +117,10 @@ class GenerateTimetable {
       
         return this.days[nextday]
         
+    }
+
+    checkSameDay(ele: Iclasses, cours: Icourses): Itimes{
+        return this.provisionalTimetable.filter(x => x.day === ele.day && x.courseName === cours.course)[0]
     }
 
     generateTimePeriods(hour: number, courses: Icourses): number{

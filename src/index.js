@@ -58,9 +58,9 @@ button.addEventListener('click', function () {
     }
     else {
         generateTimetable = new timetable_1.GenerateTimetable(templates.blocks, templates.courses);
+        console.log(templates.courses, 'from courses');
         generateTimetable.generateClass();
         var day = areDaysFull();
-        console.log(generateTimetable.provisionalTimetable);
         if (!day) {
             generateTimetable.provisionalTimetable.forEach(function (i) {
                 table.innerHTML += "\n                    \n                <tr>\n                    <td>" + i.courseName + "</td>\n                    <td>" + i.tutor + "</td>\n                    <td>" + i.students + "</td>\n                    <td>" + i.classroom + "</td>\n                    <td>" + i.day + "</td>\n                    <td>" + i.startTime + "</td>\n                    <td>" + i.endTime + "</td>\n\n                </tr>         \n            \n    ";

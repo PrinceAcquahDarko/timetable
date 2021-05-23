@@ -31,7 +31,7 @@ var GenerateTimetable = /** @class */ (function () {
                                     else {
                                         ele.startTime = ele.endTime;
                                     }
-                                    if (!_this.checkForDuplicateTeach(ele.startTime, courses, ele) && !_this.checkForDuplicateStd(ele, courses)) {
+                                    if (!_this.checkForDuplicateTeach(ele.startTime, courses, ele) && !_this.checkForDuplicateStd(ele, courses) && !_this.checkSameDay(ele, courses)) {
                                         var hour = _this.generateTimePeriods(courses.creditHours, courses);
                                         courses.taken = true;
                                         ele.endTime = ele.startTime + hour;
@@ -92,6 +92,9 @@ var GenerateTimetable = /** @class */ (function () {
             course.taken = false;
         });
         return this.days[nextday];
+    };
+    GenerateTimetable.prototype.checkSameDay = function (ele, cours) {
+        return this.provisionalTimetable.filter(function (x) { return x.day === ele.day && x.courseName === cours.course; })[0];
     };
     GenerateTimetable.prototype.generateTimePeriods = function (hour, courses) {
         var hours = 0;

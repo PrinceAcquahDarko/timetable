@@ -55,7 +55,7 @@ var Templates = /** @class */ (function () {
     };
     Templates.prototype.gettutor = function () {
         this.tutorValue = document.querySelector('#tutor');
-        if (this.tutorValue) {
+        if (this.tutorValue.value) {
             this.course.Tutor = this.tutorValue.value;
         }
         else {
@@ -64,7 +64,7 @@ var Templates = /** @class */ (function () {
     };
     Templates.prototype.getstds = function () {
         this.stdsValue = document.querySelector('#stds');
-        if (this.stdsValue) {
+        if (this.stdsValue.value) {
             this.course.students.push(this.stdsValue.value);
         }
         else {
@@ -72,9 +72,29 @@ var Templates = /** @class */ (function () {
         }
     };
     Templates.prototype.getCourse = function () {
-        this.courses.push(this.course);
-        this.courseName = this.course.course;
-        this.resetCourse();
+        if (this.course.creditHours > 2) {
+            this.course.creditHours -= 2;
+            this.course.taken = true;
+            this.courses.push(this.course);
+            var secondCourse = {
+                course: this.course.course,
+                Tutor: this.course.Tutor,
+                taken: false,
+                numberOfStds: this.course.numberOfStds,
+                creditHours: 2,
+                students: this.course.students
+            };
+            this.courses.push(secondCourse);
+            this.courseName = this.course.course;
+            this.resetCourse();
+            this.sortCourses();
+        }
+        else {
+            this.courses.push(this.course);
+            this.courseName = this.course.course;
+            this.resetCourse();
+            this.sortCourses();
+        }
     };
     Templates.prototype.resetCourse = function () {
         this.course = {
@@ -114,6 +134,7 @@ var Templates = /** @class */ (function () {
         this.blocks.push(this.block);
         this.blockName = this.block.classroom;
         this.resetBlock();
+        this.sortBlocks();
     };
     Templates.prototype.resetBlock = function () {
         this.block = {
@@ -130,16 +151,18 @@ var Templates = /** @class */ (function () {
         return !!this.blocks.length && !!this.courses.length;
     };
     Templates.prototype.checkLimit = function () {
-        for (var _i = 0, _a = this.courses; _i < _a.length; _i++) {
-            var i = _a[_i];
-            for (var _b = 0, _c = this.blocks; _b < _c.length; _b++) {
-                var j = _c[_b];
-                if (i.numberOfStds > j.size) {
-                    this.displayMsg = "<h3 style=\"text-align:center\">there's no block that can contain " + i.numberOfStds + " stds of " + i.course + "</h3>";
-                    break;
-                }
-            }
-        }
+        var highestCourse = this.courses.sort(function (a, b) { return b.numberOfStds - a.numberOfStds; })[0];
+        var highestBlock = this.blocks.sort(function (a, b) { return b.size - a.size; })[0];
+        console.log(highestCourse, 'from course');
+        console.log(highestBlock, 'from block');
+        if (highestCourse.numberOfStds > highestBlock.size)
+            this.displayMsg = "<h3 style=\"text-align:center\">there's no block that can contain " + highestCourse.numberOfStds + " stds of " + highestCourse.course + "</h3>";
+    };
+    Templates.prototype.sortCourses = function () {
+        this.courses.sort(function (x, y) { return y.creditHours - x.creditHours; });
+    };
+    Templates.prototype.sortBlocks = function () {
+        this.blocks.sort(function (x, y) { return x.size - y.size; });
     };
     return Templates;
 }());
