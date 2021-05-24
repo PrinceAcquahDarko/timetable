@@ -43,3 +43,17 @@ button {
 form{
     padding: 4em;
 }
+
+@media only screen and (max-width: 800px) {
+    .exampleContainer {
+      /* height: 600px; */
+      width: 350px;
+      max-width: 100%;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+    }
+
+}

@@ -65,7 +65,12 @@ var Templates = /** @class */ (function () {
     Templates.prototype.getstds = function () {
         this.stdsValue = document.querySelector('#stds');
         if (this.stdsValue.value) {
-            this.course.students.push(this.stdsValue.value);
+            var stds = this.stdsValue.value.split(",");
+            console.log(stds);
+            for (var _i = 0, stds_1 = stds; _i < stds_1.length; _i++) {
+                var item = stds_1[_i];
+                this.course.students.push(item);
+            }
         }
         else {
             this.errorMsg = 'stds cannot be empty';

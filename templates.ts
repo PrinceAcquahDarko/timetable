@@ -73,7 +73,11 @@ export class Templates {
     getstds(): void{
         this.stdsValue= <HTMLInputElement>document.querySelector('#stds')!
         if(this.stdsValue.value){
-            this.course.students.push(this.stdsValue.value)  
+            let stds = this.stdsValue.value.split(",");
+            console.log(stds)
+            for (const item of stds) {
+                this.course.students.push(item)
+            }
         }else{
             this.errorMsg = 'stds cannot be empty'
         }

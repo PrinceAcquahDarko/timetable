@@ -34,13 +34,20 @@
                     <input type="number" class="form-control" id="NoOfStds" placeholder="No Of Students">
                   </div>
                   <div class="mb-3">
-                    <input type="number" class="form-control" id="hours" placeholder="creditHours">
+                    <select class="form-control" name="" id="hours">
+                      <option value="">creditHours</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                    <!-- <input type="number" class="form-control" id="hours" placeholder="creditHours"> -->
                   </div>
                   <div class="mb-3">
                     <input type="text" class="form-control" id = "tutor" placeholder="Tutor">
                   </div>
                   <div class="mb-3">
-                    <input type="text" class="form-control" id="stds"  placeholder="Students">
+                    <input type="text" class="form-control" id="stds"  placeholder="Students..Separate with commas if multiple(eg: IT,BA)">
                   </div>
            
                   <div class="col-12">
@@ -80,27 +87,26 @@
         
     
         <div id="results" class="display outfo none">
-          <div class="card">
-            <div class="card-body">
-            </div>
+          <div class="exampleContainer">
             <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>courseName</th>
-                        <th>tutor</th>
-                        <th>students</th>
-                        <th>classroom</th>
-                        <th>day</th>
-                        <th>startTime</th>
-                        <th>endTime</th>
-                      </tr>
-              
-                </thead>
-                <tbody>
-                 
-                </tbody>
-              </table>
+              <thead>
+                  <tr>
+                      <th>courseName</th>
+                      <th>tutor</th>
+                      <th>students</th>
+                      <th>classroom</th>
+                      <th>day</th>
+                      <th>startTime</th>
+                      <th>endTime</th>
+                    </tr>
+            
+              </thead>
+              <tbody>
+               
+              </tbody>
+            </table>
           </div>
+          
           </div>
         <div class="genbutt">
           <button class="btn btn-primary gen none">generate timetable</button>
